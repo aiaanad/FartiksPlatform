@@ -1,10 +1,33 @@
 <Solution>
+  <Folder Name="/api-gateway/">
+    <Project Path="api-gateway/FartiksPlatform.Gateway.Yarp.csproj" />
+  </Folder>
   <Folder Name="/services/" />
+  <Folder Name="/services/billing-service/" />
+  <Folder Name="/services/billing-service/API/">
+    <Project Path="services/billing-service/API/FartiksPlatform.Services.Billing.API.csproj" />
+  </Folder>
+  <Folder Name="/services/billing-service/Domain/">
+    <Project Path="services/billing-service/Domain/FartiksPlatform.Services.Billing.Domain.csproj" />
+  </Folder>
+  <Folder Name="/services/billing-service/Infrastructure/">
+    <Project Path="services/billing-service/Infrastructure/FartiksPlatform.Services.Billing.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/services/gameplay-service/" />
   <Folder Name="/services/gameplay-service/Domain/">
     <Project Path="services/gameplay-service/Domain/FartiksPlatform.Services.Gameplay.Domain.csproj" />
   </Folder>
   <Folder Name="/services/gameplay-service/Infrastructure/">
     <Project Path="services/gameplay-service/Infrastructure/FartiksPlatform.Services.Gameplay.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/services/user-service/" />
+  <Folder Name="/services/user-service/API/">
+    <Project Path="services/user-service/API/FartiksPlatform.Services.User.API.csproj" />
+  </Folder>
+  <Folder Name="/services/user-service/Domain/">
+    <Project Path="services/user-service/Domain/FartiksPlatform.Services.User.Domain.csproj" />
+  </Folder>
+  <Folder Name="/services/user-service/Infrastructure/">
+    <Project Path="services/user-service/Infrastructure/FartiksPlatform.Services.User.Infrastructure.csproj" />
   </Folder>
 </Solution>

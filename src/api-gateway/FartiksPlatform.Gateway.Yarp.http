@@ -1,0 +1,6 @@
+@FartiksPlatform.Gateway.Yarp_HostAddress = http://localhost:5277
+
+GET {{FartiksPlatform.Gateway.Yarp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
