@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/services/" />
+  <Folder Name="/services/gameplay-service/" />
+  <Folder Name="/services/gameplay-service/Domain/">
+    <Project Path="services/gameplay-service/Domain/FartiksPlatform.Services.Gameplay.Domain.csproj" />
+  </Folder>
+  <Folder Name="/services/gameplay-service/Infrastructure/">
+    <Project Path="services/gameplay-service/Infrastructure/FartiksPlatform.Services.Gameplay.Infrastructure.csproj" />
+  </Folder>
+</Solution>
