@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "buildingblocks": {
+        "type": "Project"
+      },
+      "user.application": {
+        "type": "Project",
+        "dependencies": {
+          "BuildingBlocks": "[1.0.0, )",
+          "User.Domain": "[1.0.0, )"
+        }
+      },
+      "user.domain": {
+        "type": "Project"
+      }
+    }
+  }
+}

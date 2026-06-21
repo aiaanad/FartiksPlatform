@@ -1,0 +1,55 @@
+services:
+  fartiks-postgres:
+    image: postgres:16-alpine
+    container_name: fartiks-postgres
+    environment:
+      POSTGRES_USER: postgres_admin
+      POSTGRES_PASSWORD: SuperSecurePassword123!
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - fartiks-network
+    restart: unless-stopped
+
+  user-service:
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: src/Services/User/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=fartiks-postgres;Port=5432;Database=users_db;Username=postgres_admin;Password=SuperSecurePassword123!
+    depends_on:
+      - fartiks-postgres
+    networks:
+      - fartiks-network
+    restart: always
+
+  billing-service:
+    container_name: billing-service
+    build:
+      context: .
+      dockerfile: src/Services/Billing/Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=fartiks-postgres;Port=5432;Database=billing_db;Username=postgres_admin;Password=SuperSecurePassword123!
+    depends_on:
+      - fartiks-postgres
+    networks:
+      - fartiks-network
+    restart: always
+
+networks:
+  fartiks-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

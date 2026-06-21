@@ -1,0 +1,158 @@
+# .editorconfig согласно предоставленному Style Guide
+
+root = true
+
+[*.cs]
+# ==========================================
+# 1. Форматирование и базовые настройки (General & Formatting)
+# ==========================================
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# Настройки пустых строк и переносов (Formatting)
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
+
+# Требовать перенос строки перед оператором return (Formatting)
+dotnet_diagnostic.RS001.severity = warning
+
+# Помещать автосвойства на одной строке (Property declaration)
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+
+# ==========================================
+# 2. Правила именования (Naming)
+# ==========================================
+dotnet_naming_rules = true
+
+# Запрет префиксов у полей (кроме приватных, там разрешен _)
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+
+# Отрицание в названиях (isNotBlue - Bad)
+dotnet_diagnostic.IDENEW001.severity = warning
+
+# Постфикс Exception для всех производных от Exception (Exceptions)
+dotnet_naming_rule.exceptions_should_end_with_exception.symbols = exception_classes
+dotnet_naming_rule.exceptions_should_end_with_exception.style = exception_style
+dotnet_naming_rule.exceptions_should_end_with_exception.severity = error
+
+dotnet_naming_symbols.exception_classes.applicable_kinds = class
+dotnet_naming_symbols.exception_classes.applicable_accessibilities = *
+dotnet_naming_symbols.exception_classes.base_type = System.Exception
+dotnet_naming_style.exception_style.required_postfix = Exception
+dotnet_naming_style.exception_style.capitalization = pascal_case
+
+# Постфикс Extensions для классов методов расширения (Common)
+dotnet_naming_rule.extensions_classes_style.symbols = extension_classes
+dotnet_naming_rule.extensions_classes_style.style = extension_style
+dotnet_naming_rule.extensions_classes_style.severity = warning
+
+dotnet_naming_symbols.extension_classes.applicable_kinds = class
+dotnet_naming_symbols.extension_classes.applicable_accessibilities = *
+# (Примечание: Анализатор проверяет наличие статических классов со статическими методами)
+dotnet_naming_style.extension_style.required_postfix = Extensions
+dotnet_naming_style.extension_style.capitalization = pascal_case
+
+# ==========================================
+# 3. Объявление переменных и операторов (Variable declaration)
+# ==========================================
+# Использовать var только когда тип очевиден (Variable and operator declaration)
+csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = false:warning
+
+# Запрет магических чисел (Magic numbers)
+dotnet_diagnostic.CA1508.severity = warning
+
+# Обязательный default в switch, выбрасывающий исключение (Variable declaration)
+dotnet_diagnostic.CA1507.severity = warning
+csharp_style_prefer_switch_expression = true:suggestion
+
+# Проверка на null через 'is null' и 'is not null' (Common)
+csharp_style_prefer_not_null_pattern = true:error
+csharp_style_null_check_placement = prefer_runtime_type_not_null:error
+
+# Расположение констант перед переменными в условиях ( Count >= Max )
+# Отключаем "стиль Йоды" (заставляем писать: переменная сначала, константа потом)
+dotnet_style_prefer_simplified_boolean_expressions = true:error
+
+# ==========================================
+# 4. Ограничения и запреты (Restrict)
+# ==========================================
+# Не использовать dynamic
+dotnet_diagnostic.CA2211.severity = error
+csharp_style_var_for_built_in_types = false:error
+
+# Не использовать goto
+dotnet_diagnostic.CS0139.severity = error
+
+# Не использовать модификатор доступа internal (только public/private/protected)
+dotnet_style_prefer_accessibility_modifiers = always:error
+# Запрет internal на уровне компилятора
+dotnet_diagnostic.CS0051.severity = error 
+
+# Не использовать query-like LINQ (допускается только method chain-like)
+csharp_style_prefer_query_expression = false:error
+
+# Не использовать Tuple, ValueTuple в сигнатурах методов (только кастомные типы)
+dotnet_diagnostic.CA1008.severity = error
+
+# Запрет использования типов char, short, unsigned для экономии памяти (Restrict)
+dotnet_diagnostic.CA1806.severity = warning
+
+# Лямбды: не больше одной операции (выносить сложную логику)
+csharp_style_expression_bodied_lambdas = false:warning
+
+# ==========================================
+# 5. Свойства и типы (Property & Type declaration)
+# ==========================================
+# Инициализация полей должна происходить в конструкторе (Type declaration)
+dotnet_diagnostic.CA1805.severity = error # Запрет инициализации дефолтными значениями при объявлении
+csharp_style_prefer_extended_property_pattern = true:warning
+
+# get-only свойства должны использовать expression-bodied (Property declaration)
+csharp_style_expression_bodied_properties = true:error
+
+# Порядок членов класса (Constants -> Fields -> Constructors -> Properties -> Methods)
+# Задается правилом сортировки IDE (Rider / VS применят автоматически при Ctrl+Alt+L)
+csharp_style_order_by_modifier = true:warning
+
+# Енамы: нумерация с 1, а 0 — для неизвестных значений (None/Undefined)
+dotnet_diagnostic.CA1008.severity = error
+
+# Запрет публичных полей (Type declaration)
+dotnet_diagnostic.CA1051.severity = error
+
+# Запрет приватных свойств (Type declaration)
+dotnet_diagnostic.ID0001.severity = error
+
+# Запрет использования оператора == для не числовых ссылочных типов (Type declaration)
+dotnet_diagnostic.CA1307.severity = error
+dotnet_diagnostic.CA1309.severity = error
+
+# ==========================================
+# 6. Исключения (Exceptions)
+# ==========================================
+# Если ошибка при валидации аргументов — указывать имя аргумента (Exceptions)
+dotnet_diagnostic.CA2208.severity = error # ArgumentException должен содержать имя параметра
+
+# Использовать Type.Parse вместо Convert.ToType (Common)
+dotnet_diagnostic.CA1305.severity = warning
+
+# ==========================================
+# 7. Архитектурные правила маппинга DTO (Dto)
+# ==========================================
+# Для простых DTO использовать record
+csharp_style_prefer_readonly_struct = true:suggestion
+
+# Если DTO класс — сеттеры должны быть приватными или init (Dto)
+dotnet_diagnostic.CA1822.severity = warning

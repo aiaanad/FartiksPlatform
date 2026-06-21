@@ -24,4 +24,7 @@
     <Project Path="src/Services/User/User.Domain/User.Domain.csproj" />
     <Project Path="src/Services/User/User.Infrastructure/User.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/User.Domain.Tests/User.Domain.Tests.csproj" />
+  </Folder>
 </Solution>
