@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BuildingBlocks/BuildingBlocks.csproj" />
+  </Folder>
+  <Folder Name="/src/Gateway/">
+    <Project Path="src/Gateway/Gateway.Yarp/Gateway.Yarp.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Billing/">
+    <Project Path="src/Services/Billing/Billing.Api/Billing.Api.csproj" />
+    <Project Path="src/Services/Billing/Billing.Application/Billing.Application.csproj" />
+    <Project Path="src/Services/Billing/Billing.Domain/Billing.Domain.csproj" />
+    <Project Path="src/Services/Billing/Billing.Infrastructure/Billing.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Gameplay/">
+    <Project Path="src/Services/Gameplay/Gameplay.Api/Gameplay.Api.csproj" />
+    <Project Path="src/Services/Gameplay/Gameplay.Application/Gameplay.Application.csproj" />
+    <Project Path="src/Services/Gameplay/Gameplay.Domain/Gameplay.Domain.csproj" />
+    <Project Path="src/Services/Gameplay/Gameplay.Infrastructure/Gameplay.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/User/">
+    <Project Path="src/Services/User/User.Api/User.Api.csproj" />
+    <Project Path="src/Services/User/User.Application/User.Application.csproj" />
+    <Project Path="src/Services/User/User.Domain/User.Domain.csproj" />
+    <Project Path="src/Services/User/User.Infrastructure/User.Infrastructure.csproj" />
+  </Folder>
+</Solution>

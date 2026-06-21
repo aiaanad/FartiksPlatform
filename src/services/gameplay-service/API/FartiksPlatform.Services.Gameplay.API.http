@@ -1,6 +1,0 @@
-@FartiksPlatform.Services.Gameplay.API_HostAddress = http://localhost:5022
-
-GET {{FartiksPlatform.Services.Gameplay.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
