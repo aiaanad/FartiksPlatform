@@ -1,4 +1,4 @@
-﻿namespace Billing.Domain;
+namespace Billing.Domain;
 
 public class Class1
 {

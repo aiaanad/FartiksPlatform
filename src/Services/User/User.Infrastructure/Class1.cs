@@ -1,4 +1,4 @@
-﻿namespace User.Infrastructure;
+namespace User.Infrastructure;
 
 public class Class1
 {

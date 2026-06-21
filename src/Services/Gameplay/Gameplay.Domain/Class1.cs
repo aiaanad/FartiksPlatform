@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Domain;
+namespace Gameplay.Domain;
 
 public class Class1
 {

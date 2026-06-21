@@ -1,4 +1,4 @@
-﻿namespace Gameplay.Infrastructure;
+namespace Gameplay.Infrastructure;
 
 public class Class1
 {
