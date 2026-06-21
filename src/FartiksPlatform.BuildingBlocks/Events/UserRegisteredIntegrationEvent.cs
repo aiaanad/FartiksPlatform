@@ -1,6 +1,6 @@
-namespace FartiksPlatform.BuildingBlocks.IntegrationEvents;
+namespace FartiksPlatform.BuildingBlocks.Events;
 
-public record UserRegisteredIntegrationEvent
+public record UserRegisteredEvent
 {
     public Guid EventId { get; init; } = Guid.NewGuid();
 

@@ -1,18 +1,17 @@
 using FartiksPlatform.BuildingBlocks.Errors;
-using MediatR;
 
 namespace FartiksPlatform.BuildingBlocks.Common;
 
 public class Result
 {
-    protected Result(bool isSuccess, Error error)
+    protected Result(bool isSuccess, ErrorType error)
     {
-        if (isSuccess && error != Error.None)
+        if (isSuccess && error is string.Empty)
         {
             throw new InvalidOperationException("Success result cannot contain an error.");
         }
 
-        if (!isSuccess && error == Error.None)
+        if (!isSuccess && error is string.Empty)
         {
             throw new InvalidOperationException("Failure result must contain an error.");
         }
@@ -25,13 +24,13 @@ public class Result
 
     public bool IsFailure => !IsSuccess;
 
-    public Error Error { get; }
+    public ErrorType Error { get; }
 
-    public static Result Success() => new(true, Error.None);
+    public static Result Success() => new(true, string.Empty);
 
     public static Result Failure(Error error) => new(false, error);
 
-    public static Result<TValue> Success<TValue>(TValue value) => new(value, true, Error.None);
+    public static Result<TValue> Success<TValue>(TValue value) => new(value, true, string.Empty);
 
     public static Result<TValue> Failure<TValue>(Error error) => new(default, false, error);
 }
@@ -40,7 +39,7 @@ public class Result<TValue> : Result
 {
     private readonly TValue? _value;
 
-    protected internal Result(TValue? value, bool isSuccess, Error error)
+    protected internal Result(TValue? value, bool isSuccess, ErrorType error)
         : base(isSuccess, error)
     {
         _value = value;
@@ -50,13 +49,3 @@ public class Result<TValue> : Result
         ? _value!
         : throw new InvalidOperationException("Cannot access value of a failed result.");
 }
-
-public interface ICommand<out TResponse> : IRequest<TResponse>;
-
-public interface IQuery<out TResponse> : IRequest<TResponse>;
-
-public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
-    where TCommand : ICommand<TResponse>;
-
-public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
-    where TQuery : IQuery<TResponse>;
