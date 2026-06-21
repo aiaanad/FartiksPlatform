@@ -28,19 +28,19 @@ jobs:
 
     # 3. Восстанавливаем пакеты (если кэш сработал, этот шаг займет пару секунд вместо минут)
     - name: Restore dependencies
-      run: dotnet restore FartiksPlatform.sln
+      run: dotnet restore FartiksPlatform.slnx
 
     # 4. Проверка линтера (Форматирование кода по вашему .editorconfig)
     - name: Check Code Formatting (Lint)
-      run: dotnet format FartiksPlatform.sln --verify-no-changes
+      run: dotnet format FartiksPlatform.slnx --verify-no-changes
 
     # 5. Сборка всего решения в режиме Release (флаг --no-restore запрещает повторный выход в интернет)
     - name: Build Solution
-      run: dotnet build FartiksPlatform.sln --configuration Release --no-restore
+      run: dotnet build FartiksPlatform.slnx --configuration Release --no-restore
 
     # 6. Запуск всех тестов (флаг --no-build гарантирует, что мы не тратим ресурсы на пересборку)
     - name: Run Tests
-      run: dotnet test FartiksPlatform.sln --configuration Release --no-build --verbosity minimal
+      run: dotnet test FartiksPlatform.slnx --configuration Release --no-build --verbosity minimal
 
   docker-lint:
     runs-on: ubuntu-latest
