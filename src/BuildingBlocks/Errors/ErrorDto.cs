@@ -2,10 +2,11 @@ namespace BuildingBlocks.Errors;
 
 public class ErrorDto
 {
-    public string Type { get; set; } = "https://tools.ietf.org/html/rfc7807";
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; set; } = null!;
     public int Status { get; set; }
-    public string Detail { get; set; } = string.Empty;
-    public string Instance { get; set; } = string.Empty;
-    public Dictionary<string, string[]> Errors { get; set; } = new();
+    public string ErrorType { get; set; } = null!;
+    public string? Detail { get; set; }
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public string TraceId { get; set; } = null!;
+    public Dictionary<string, string[]> ValidationErrors { get; set; } = new();
 }
