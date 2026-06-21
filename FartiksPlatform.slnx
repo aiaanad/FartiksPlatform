@@ -1,28 +1,25 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/BuildingBlocks/BuildingBlocks.csproj" />
-  </Folder>
-  <Folder Name="/src/Gateway/">
-    <Project Path="src/Gateway/Gateway.Yarp/Gateway.Yarp.csproj" />
-  </Folder>
-  <Folder Name="/src/Services/" />
-  <Folder Name="/src/Services/Billing/">
-    <Project Path="src/Services/Billing/Billing.Api/Billing.Api.csproj" />
-    <Project Path="src/Services/Billing/Billing.Application/Billing.Application.csproj" />
-    <Project Path="src/Services/Billing/Billing.Domain/Billing.Domain.csproj" />
-    <Project Path="src/Services/Billing/Billing.Infrastructure/Billing.Infrastructure.csproj" />
-  </Folder>
-  <Folder Name="/src/Services/Gameplay/">
-    <Project Path="src/Services/Gameplay/Gameplay.Api/Gameplay.Api.csproj" />
-    <Project Path="src/Services/Gameplay/Gameplay.Application/Gameplay.Application.csproj" />
-    <Project Path="src/Services/Gameplay/Gameplay.Domain/Gameplay.Domain.csproj" />
-    <Project Path="src/Services/Gameplay/Gameplay.Infrastructure/Gameplay.Infrastructure.csproj" />
+    <Project Path="src/FartiksPlatform.BuildingBlocks/FartiksPlatform.BuildingBlocks.csproj" />
+    <Project Path="src/FartiksPlatform.Gateway/FartiksPlatform.Gateway.csproj" />
   </Folder>
   <Folder Name="/src/Services/User/">
-    <Project Path="src/Services/User/User.Api/User.Api.csproj" />
-    <Project Path="src/Services/User/User.Application/User.Application.csproj" />
-    <Project Path="src/Services/User/User.Domain/User.Domain.csproj" />
-    <Project Path="src/Services/User/User.Infrastructure/User.Infrastructure.csproj" />
+    <Project Path="src/Services/User/FartiksPlatform.Services.User.Api/FartiksPlatform.Services.User.Api.csproj" />
+    <Project Path="src/Services/User/FartiksPlatform.Services.User.Application/FartiksPlatform.Services.User.Application.csproj" />
+    <Project Path="src/Services/User/FartiksPlatform.Services.User.Domain/FartiksPlatform.Services.User.Domain.csproj" />
+    <Project Path="src/Services/User/FartiksPlatform.Services.User.Infrastructure/FartiksPlatform.Services.User.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Billing/">
+    <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Api/FartiksPlatform.Services.Billing.Api.csproj" />
+    <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Application/FartiksPlatform.Services.Billing.Application.csproj" />
+    <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Domain/FartiksPlatform.Services.Billing.Domain.csproj" />
+    <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Infrastructure/FartiksPlatform.Services.Billing.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Gameplay/">
+    <Project Path="src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Api/FartiksPlatform.Services.Gameplay.Api.csproj" />
+    <Project Path="src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Application/FartiksPlatform.Services.Gameplay.Application.csproj" />
+    <Project Path="src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Domain/FartiksPlatform.Services.Gameplay.Domain.csproj" />
+    <Project Path="src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Infrastructure/FartiksPlatform.Services.Gameplay.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/User.Domain.Tests/User.Domain.Tests.csproj" />
