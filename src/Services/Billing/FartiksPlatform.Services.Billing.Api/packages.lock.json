@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "Microsoft.AspNetCore.OpenApi": {
+        "type": "Direct",
+        "requested": "[10.0.3, )",
+        "resolved": "10.0.3",
+        "contentHash": "SAvSrKDgnY5GDjDAngOXxPhUvEKlTU/0zIq8zidqHvh/xnZBPs0Vc4LqwyvnmnafNnyUaivtRABz4K4wodXfSg==",
+        "dependencies": {
+          "Microsoft.OpenApi": "2.0.0"
+        }
+      },
+      "MediatR": {
+        "type": "Transitive",
+        "resolved": "12.4.1",
+        "contentHash": "0tLxCgEC5+r1OCuumR3sWyiVa+BMv3AgiU4+pz8xqTc+2q1WbUEXFOr7Orm96oZ9r9FsldgUtWvB2o7b9jDOaw==",
+        "dependencies": {
+          "MediatR.Contracts": "[2.0.1, 3.0.0)"
+        }
+      },
+      "MediatR.Contracts": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ=="
+      },
+      "Microsoft.OpenApi": {
+        "type": "Transitive",
+        "resolved": "2.0.0",
+        "contentHash": "GGYLfzV/G/ct80OZ45JxnWP7NvMX1BCugn/lX7TH5o0lcVaviavsLMTxmFV2AybXWjbi3h6FF1vgZiTK6PXndw=="
+      },
+      "fartiksplatform.buildingblocks": {
+        "type": "Project",
+        "dependencies": {
+          "MediatR": "[12.4.1, )"
+        }
+      },
+      "fartiksplatform.services.billing.application": {
+        "type": "Project",
+        "dependencies": {
+          "FartiksPlatform.BuildingBlocks": "[1.0.0, )",
+          "FartiksPlatform.Services.Billing.Domain": "[1.0.0, )"
+        }
+      },
+      "fartiksplatform.services.billing.domain": {
+        "type": "Project"
+      },
+      "fartiksplatform.services.billing.infrastructure": {
+        "type": "Project",
+        "dependencies": {
+          "FartiksPlatform.Services.Billing.Application": "[1.0.0, )"
+        }
+      }
+    }
+  }
+}
