@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using FartiksPlatform.BuildingBlocks.Errors;
 
 namespace FartiksPlatform.BuildingBlocks.Common;
