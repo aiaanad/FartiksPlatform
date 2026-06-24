@@ -1,4 +1,9 @@
+using BuildingBlocks.Events;
+using User.Infrastructure;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -18,6 +23,20 @@ string[] summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
+
+// Тестовая ручка (проверить RabbitMQ), потом удалить надо
+app.MapGet("/test-register", (User.Application.Interfaces.IEventPublisher publisher) =>
+{
+    var testEvent = new BuildingBlocks.Events.UserRegisteredEvent
+    {
+        PlayerId = Guid.NewGuid(),
+        Username = "TestUser",
+        Email = "user@test.com"
+    };
+
+    publisher.Publish(testEvent, "user-exchange", "user.registered");
+    return Results.Ok(new { Message = "Event sent to Billing Service.", PlayerId = testEvent.PlayerId });
+});
 
 app.MapGet("/weatherforecast", () =>
 {
