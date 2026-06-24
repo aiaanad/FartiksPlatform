@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace BuildingBlocks.Errors;
+namespace FartiksPlatform.BuildingBlocks.Errors;
 
 public class ExceptionHandlingMiddleware
 {

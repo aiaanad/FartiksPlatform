@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Events;
+namespace FartiksPlatform.BuildingBlocks.Events;
 
 public record UserRegisteredEvent
 {

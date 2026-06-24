@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlocks.Errors;
+namespace FartiksPlatform.BuildingBlocks.Errors;
 
 public class DefaultErrorMapper : IErrorMapper
 {

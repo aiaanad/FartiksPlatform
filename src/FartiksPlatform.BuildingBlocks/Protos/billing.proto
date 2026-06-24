@@ -11,7 +11,7 @@ service BillingGrpcService {
 
 message BetRequest {
   string player_id = 1;
-  double amount = 2;
+  string amount = 2;
   string currency = 3;
   string game_id = 4;
 }
@@ -24,7 +24,7 @@ message BetResponse {
 
 message WinRequest {
   string player_id = 1;
-  double amount = 2;
+  string amount = 2;
   string currency = 3;
   string game_id = 4;
 }
