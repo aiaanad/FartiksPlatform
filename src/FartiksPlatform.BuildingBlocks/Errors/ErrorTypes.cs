@@ -3,7 +3,7 @@ namespace FartiksPlatform.BuildingBlocks.Errors;
 public static class ErrorTypes
 {
     public const string UnknownError = "UNKNOWN_ERROR";
-
+    
     public const string ValidationError = "VALIDATION_ERROR";
     public const string Unauthorized = "UNAUTHORIZED";
     public const string Forbidden = "FORBIDDEN";
@@ -14,7 +14,7 @@ public static class ErrorTypes
     public const string WalletVersionConflict = "WALLET_VERSION_CONFLICT";
     public const string GameNotFound = "GAME_NOT_FOUND";
     public const string InternalError = "INTERNAL_ERROR";
-
+    
     // User/Auth
     public const string EmailAlreadyUsed = "EMAIL_ALREADY_USED";
     public const string InvalidCredentials = "INVALID_CREDENTIALS";

@@ -68,7 +68,7 @@ public class ExceptionHandlingMiddleware
             "Unhandled exception. Status: {Status}, ErrorType: {ErrorType}, TraceId: {TraceId}",
             status, errorType, traceId);
 
-        ErrorDto error = new()
+        ErrorDto error = new ()
         {
             Title = title,
             Status = status,
@@ -80,7 +80,7 @@ public class ExceptionHandlingMiddleware
 
         context.Response.StatusCode = status;
         context.Response.ContentType = "application/json; charset=utf-8";
-
+        
         string answer = JsonSerializer.Serialize(error);
         await context.Response.WriteAsync(answer);
     }

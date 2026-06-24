@@ -1,7 +1,13 @@
 {
   "version": 1,
   "dependencies": {
-    "net10.0": {
+    "net9.0": {
+      "MassTransit.Abstractions": {
+        "type": "Direct",
+        "requested": "[8.3.6, )",
+        "resolved": "8.3.6",
+        "contentHash": "F3R3EFPvUvpsiebnijmpvZ4IhSEcqkEJdrhlFuTOjzIUnMRYBgki/oDfFWj57Ki4b9yq0nilt4Q5bk11pC4ygg=="
+      },
       "MediatR": {
         "type": "Transitive",
         "resolved": "14.1.0",

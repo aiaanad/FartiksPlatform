@@ -9,11 +9,11 @@ public class DefaultErrorMapper : IErrorMapper
         switch (exception)
         {
             case UnauthorizedAccessException:
-                return (StatusCodes.Status401Unauthorized,
-                        ErrorTypes.Unauthorized,
+                return (StatusCodes.Status401Unauthorized, 
+                        ErrorTypes.Unauthorized, 
                         "Неавторизовано");
             case System.ComponentModel.DataAnnotations.ValidationException:
-                return (StatusCodes.Status400BadRequest,
+                return (StatusCodes.Status400BadRequest, 
                         ErrorTypes.ValidationError,
                     "Ошибка валидации");
             default:
