@@ -36,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IPasswordHashGenerator, PasswordHashGenerator>();
         services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<IEventPublisher, RabbitMqPublisher>();
 
         // Options
         services.Configure<JwtOptions>(configuration.GetSection("Jwt"));

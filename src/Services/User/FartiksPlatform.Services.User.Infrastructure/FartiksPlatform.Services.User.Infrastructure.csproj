@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\FartiksPlatform.BuildingBlocks\FartiksPlatform.BuildingBlocks.csproj" />
+    <ProjectReference Include="..\..\Billing\FartiksPlatform.Services.Billing.Application\FartiksPlatform.Services.Billing.Application.csproj" />
     <ProjectReference Include="..\FartiksPlatform.Services.User.Application\FartiksPlatform.Services.User.Application.csproj" />
     <ProjectReference Include="..\FartiksPlatform.Services.User.Domain\FartiksPlatform.Services.User.Domain.csproj" />
   </ItemGroup>

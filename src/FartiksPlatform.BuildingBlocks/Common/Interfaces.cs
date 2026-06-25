@@ -11,3 +11,8 @@ public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand
 
 public interface IQueryHandler<TQuery, TResponse> : IRequestHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>;
+
+public interface IDateTimeProvider
+{
+    DateTime UtcNow { get; }
+}

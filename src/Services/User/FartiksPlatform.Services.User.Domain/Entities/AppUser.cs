@@ -10,10 +10,15 @@ public class AppUser
     public Email Email { get; set; } = null!;
     public string PasswordHash { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
-    public UserStatus Status { get; set; }
+    public bool EmailVerified { get; set; }
+    public string Status { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
-    public bool EmailVerified { get; set; }
+
+    private readonly List<RefreshToken> _refreshTokens = new();
+    public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
+
+    private AppUser() { }
 
     public static AppUser Create(
         Guid id,
@@ -48,5 +53,19 @@ public class AppUser
     public void Activate()
     {
         throw new NotImplementedException();
+    }
+
+    public RefreshToken AddRefreshToken(string tokenHash, DateTime expiresAt, string deviceInfo, string ipAddress)
+    {
+        var refreshToken = new RefreshToken(
+            Id,
+            tokenHash,
+            expiresAt,
+            deviceInfo,
+            ipAddress
+        );
+        
+        _refreshTokens.Add(refreshToken);
+        return refreshToken;
     }
 }
