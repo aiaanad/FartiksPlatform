@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
         CancellationToken cancellationToken = default)
     {
         IOrderedQueryable<AppUser> query = _context.Users.OrderBy(u => u.CreatedAt);
-        var totalCount = await query.CountAsync(cancellationToken);
+        int totalCount = await query.CountAsync(cancellationToken);
         List<AppUser> users = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
