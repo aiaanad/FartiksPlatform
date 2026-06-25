@@ -11,13 +11,13 @@ public class RefreshToken
     public string? RevokedReason { get; private set; }
     public string? DeviceInfo { get; private set; }
     public string? IpAddress { get; private set; }
-    
-    public virtual User User { get; private set; }
-    
+
+    public AppUser User { get; private set; } = null!;
+
     public bool IsActive => RevokedAt == null && ExpiresAt > DateTime.UtcNow;
-    
-    private RefreshToken() { }
-    
+
+    private RefreshToken() { Token = string.Empty; }
+
     public RefreshToken(Guid userId, string token, DateTime expiresAt, string? deviceInfo = null, string? ipAddress = null)
     {
         Id = Guid.NewGuid();
@@ -28,7 +28,7 @@ public class RefreshToken
         DeviceInfo = deviceInfo;
         IpAddress = ipAddress;
     }
-    
+
     public void Revoke(string reason)
     {
         RevokedAt = DateTime.UtcNow;

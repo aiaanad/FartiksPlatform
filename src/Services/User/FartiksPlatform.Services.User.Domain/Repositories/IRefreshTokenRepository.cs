@@ -1,3 +1,5 @@
+using FartiksPlatform.Services.User.Domain.Entities;
+
 namespace FartiksPlatform.Services.User.Domain.Repositories;
 
 public interface IRefreshTokenRepository

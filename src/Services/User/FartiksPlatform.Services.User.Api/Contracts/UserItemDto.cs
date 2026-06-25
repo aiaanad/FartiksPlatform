@@ -1,4 +1,4 @@
-namespace FartiksPlatform.Services.User.Domain.Constants;
+namespace FartiksPlatform.Services.User.Api.Contracts;
 
 public record UserItemDto(
     Guid Id,

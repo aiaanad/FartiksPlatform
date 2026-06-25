@@ -1,4 +1,3 @@
-using FartiksPlatform.Services.User.Domain.Enums;
 using FartiksPlatform.Services.User.Domain.ValueObjects;
 
 namespace FartiksPlatform.Services.User.Domain.Entities;
@@ -11,7 +10,7 @@ public class AppUser
     public string PasswordHash { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
     public bool EmailVerified { get; set; }
-    public string Status { get; set; }
+    public string Status { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 
@@ -64,7 +63,7 @@ public class AppUser
             deviceInfo,
             ipAddress
         );
-        
+
         _refreshTokens.Add(refreshToken);
         return refreshToken;
     }

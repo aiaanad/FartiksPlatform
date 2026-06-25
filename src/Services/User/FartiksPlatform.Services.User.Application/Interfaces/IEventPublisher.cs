@@ -4,5 +4,5 @@ namespace FartiksPlatform.Services.User.Application.Interfaces;
 
 public interface IEventPublisher
 {
-    void Publish<T>(T @event, string exchangeName, string routingKey);
+    Task PublishAsync<T>(T @event, string exchangeName, string routingKey);
 }

@@ -579,7 +579,8 @@
           "MassTransit": "[8.3.6, )",
           "MassTransit.RabbitMQ": "[8.3.6, )",
           "Microsoft.EntityFrameworkCore": "[9.0.2, )",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "[9.0.2, )"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[9.0.2, )",
+          "RabbitMQ.Client": "[7.0.0, )"
         }
       }
     }

@@ -1,5 +1,6 @@
 using Grpc.Core;
 using BuildingBlocks.Grpc;
+using FartiksPlatform.BuildingBlocks.Services;
 using FartiksPlatform.Services.Billing.Application.Interfaces;
 using FartiksPlatform.Services.Billing.Domain.Entities;
 using FartiksPlatform.Services.Billing.Domain.Enums;
@@ -35,7 +36,7 @@ public class BillingService : BillingGrpcService.BillingGrpcServiceBase
             CurrencyType currency = Enum.Parse<CurrencyType>(request.Currency);
 
             Wallet wallet = await _walletRepository.GetByPlayerAndCurrencyAsync(playerId, currency) ??
-                            throw new WalletNotFoundException();
+                throw new WalletNotFoundException();
 
             decimal balanceBefore = wallet.Balance;
 

@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+option csharp_namespace = "FartiksPlatform.Services.Gameplay.Api.Protos";
+
+package gameplay;
+
+service GameplayGrpcService {
+  rpc PlaySlot (SlotRequest) returns (SlotResponse);
+  rpc PlayRoulette (RouletteRequest) returns (RouletteResponse);
+  rpc PlayBlackjack (BlackjackRequest) returns (BlackjackResponse);
+  
+  rpc GetHistory (HistoryRequest) returns (HistoryResponse);
+  rpc GetStats (StatsRequest) returns (StatsResponse);
+  
+  rpc GetGames (GamesRequest) returns (GamesResponse);
+  rpc CreateGame (CreateGameRequest) returns (CreateGameResponse);
+}
+
+message SlotRequest {
+  string player_id = 1;
+  string game_id = 2;
+  string bet_amount = 3;
+  string currency = 4;
+  int32 paylines = 5; // 1-5
+}
+
+message SlotResponse {
+  bool is_success = 1;
+  string round_id = 2;
+  string result = 3;
+  string payout = 4;
+  string new_balance = 5;
+  string error_code = 6;
+  string outcome_json = 7;
+}
+
+message RouletteRequest {
+  string player_id = 1;
+  string game_id = 2;
+  string bet_amount = 3;
+  string currency = 4;
+  string bet_type = 5;
+  int32 number = 6;
+}
+
+message RouletteResponse {
+  bool is_success = 1;
+  string round_id = 2;
+  int32 winning_number = 3;
+  string winning_color = 4;
+  string result = 5;
+  string payout = 6;
+  string new_balance = 7;
+  string error_code = 8;
+  string outcome_json = 9;
+}
+
+message BlackjackRequest {
+  string player_id = 1;
+  string game_id = 2;
+  string bet_amount = 3;
+  string currency = 4;
+  string action = 5;
+}
+
+message BlackjackResponse {
+  bool is_success = 1;
+  string round_id = 2;
+  repeated Card player_cards = 3;
+  repeated Card dealer_cards = 4;
+  int32 player_score = 5;
+  int32 dealer_score = 6;
+  string result = 7;
+  string payout = 8;
+  string new_balance = 9;
+  string error_code = 10;
+  string outcome_json = 11;
+}
+
+message Card {
+  string suit = 1;
+  string rank = 2;
+  int32 value = 3;
+}
+
+message HistoryRequest {
+  string player_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+  string game_id = 4;
+  string from_date = 5;
+  string to_date = 6;
+}
+
+message HistoryResponse {
+  bool is_success = 1;
+  repeated HistoryItem items = 2;
+  int32 total_count = 3;
+  int32 page = 4;
+  int32 page_size = 5;
+  string total_bet = 6;
+  string total_payout = 7;
+  string error_code = 8;
+}
+
+message HistoryItem {
+  string round_id = 1;
+  string game_name = 2;
+  string bet_amount = 3;
+  string result = 4;
+  string payout = 5;
+  string played_at = 6;
+}
+
+message StatsRequest {
+  string player_id = 1;
+  string game_id = 2;
+}
+
+message StatsResponse {
+  bool is_success = 1;
+  string player_id = 2;
+  int32 total_rounds = 3;
+  int32 total_wins = 4;
+  int32 total_losses = 5;
+  string total_bet = 6;
+  string total_payout = 7;
+  string net_result = 8;
+  string win_rate = 9;
+  string error_code = 10;
+}
+
+message GamesRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string game_type = 3;
+}
+
+message GamesResponse {
+  bool is_success = 1;
+  repeated Game games = 2;
+  int32 total_count = 3;
+  string error_code = 4;
+}
+
+message Game {
+  string id = 1;
+  string name = 2;
+  string type = 3;
+  string description = 4;
+  string min_bet = 5;
+  string max_bet = 6;
+  string default_bet = 7;
+  bool is_active = 8;
+  string created_at = 9;
+  string rules_json = 10;
+}
+
+message CreateGameRequest {
+  string name = 1;
+  string type = 2;
+  string description = 3;
+  string min_bet = 4;
+  string max_bet = 5;
+  string default_bet = 6;
+  string rules_json = 7;
+}
+
+message CreateGameResponse {
+  bool is_success = 1;
+  string game_id = 2;
+  string error_code = 3;
+}

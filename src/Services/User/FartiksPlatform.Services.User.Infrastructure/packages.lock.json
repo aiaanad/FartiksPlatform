@@ -49,6 +49,16 @@
           "Npgsql": "9.0.2"
         }
       },
+      "RabbitMQ.Client": {
+        "type": "Direct",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "8YJz22mOSMtkbIVuVSz2HbJwbpKwRoXQ1uqbczDUt1w1Ds8dxFs6dkV/oZ8AlTmkErZjtQelHv+oBu52ud00WA==",
+        "dependencies": {
+          "System.IO.Pipelines": "8.0.0",
+          "System.Threading.RateLimiting": "8.0.0"
+        }
+      },
       "MassTransit.Abstractions": {
         "type": "Transitive",
         "resolved": "8.3.6",
@@ -447,15 +457,6 @@
         "contentHash": "hCbO8box7i/XXiTFqCJ3GoowyLqx3JXxyrbOJ6om7dr+eAknvBNhhUHeJVGAQo44sySZTfdVffp4BrtPeLZOAA==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2"
-        }
-      },
-      "RabbitMQ.Client": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "8YJz22mOSMtkbIVuVSz2HbJwbpKwRoXQ1uqbczDUt1w1Ds8dxFs6dkV/oZ8AlTmkErZjtQelHv+oBu52ud00WA==",
-        "dependencies": {
-          "System.IO.Pipelines": "8.0.0",
-          "System.Threading.RateLimiting": "8.0.0"
         }
       },
       "System.Diagnostics.DiagnosticSource": {

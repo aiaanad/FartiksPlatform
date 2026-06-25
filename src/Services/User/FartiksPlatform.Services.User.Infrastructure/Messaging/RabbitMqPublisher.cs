@@ -6,31 +6,46 @@ using FartiksPlatform.Services.User.Application.Interfaces;
 
 namespace FartiksPlatform.Services.User.Infrastructure.Messaging;
 
-public class RabbitMqPublisher : IEventPublisher, IDisposable
+public class RabbitMqPublisher : IEventPublisher, IAsyncDisposable
 {
-    private readonly IConnection _connection;
-    private readonly IModel _channel;
+    private readonly ConnectionFactory _factory;
+    private IConnection? _connection;
+    private IChannel? _channel;
+    private readonly SemaphoreSlim _lock = new(1, 1);
 
     public RabbitMqPublisher(IConfiguration configuration)
     {
-        string host = configuration["RabbitMQ:Host"] ?? "localhost";
-        string user = configuration["RabbitMQ:Username"] ?? "guest";
-        string pass = configuration["RabbitMQ:Password"] ?? "guest";
-
-        var factory = new ConnectionFactory
+        _factory = new ConnectionFactory
         {
-            HostName = host,
-            UserName = user,
-            Password = pass,
+            HostName = configuration["RabbitMQ:Host"] ?? "localhost",
+            UserName = configuration["RabbitMQ:Username"] ?? "guest",
+            Password = configuration["RabbitMQ:Password"] ?? "guest",
         };
-
-        _connection = factory.CreateConnection();
-        _channel = _connection.CreateModel();
     }
 
-    public void Publish<T>(T @event, string exchangeName, string routingKey)
+    private async Task<IChannel> GetChannelAsync()
     {
-        _channel.ExchangeDeclare(
+        await _lock.WaitAsync();
+        try
+        {
+            if (_channel is { IsOpen: true })
+                return _channel;
+
+            _connection = await _factory.CreateConnectionAsync();
+            _channel = await _connection.CreateChannelAsync();
+            return _channel;
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+
+    public async Task PublishAsync<T>(T @event, string exchangeName, string routingKey)
+    {
+        IChannel channel = await GetChannelAsync();
+
+        await channel.ExchangeDeclareAsync(
             exchange: exchangeName,
             type: ExchangeType.Direct,
             durable: true);
@@ -38,19 +53,33 @@ public class RabbitMqPublisher : IEventPublisher, IDisposable
         string json = JsonSerializer.Serialize(@event);
         byte[] body = Encoding.UTF8.GetBytes(json);
 
-        IBasicProperties? properties = _channel.CreateBasicProperties();
-        properties.Persistent = true;
+        var properties = new BasicProperties
+        {
+            Persistent = true
+        };
 
-        _channel.BasicPublish(
+        await channel.BasicPublishAsync(
             exchange: exchangeName,
             routingKey: routingKey,
+            mandatory: false,
             basicProperties: properties,
             body: body);
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        _channel.Close();
-        _connection.Close();
+        if (_channel is not null)
+        {
+            await _channel.CloseAsync();
+            _channel.Dispose();
+        }
+
+        if (_connection is not null)
+        {
+            await _connection.CloseAsync();
+            _connection.Dispose();
+        }
+
+        _lock.Dispose();
     }
 }

@@ -1,4 +1,4 @@
-namespace FartiksPlatform.Services.User.Domain.Constants;
+namespace FartiksPlatform.BuildingBlocks.Services;
 
 public class DateTimeProvider : IDateTimeProvider
 {
