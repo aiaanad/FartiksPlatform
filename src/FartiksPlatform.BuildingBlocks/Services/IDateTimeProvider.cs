@@ -1,4 +1,4 @@
-namespace FartiksPlatform.Services.User.Application.Interfaces;
+namespace FartiksPlatform.BuildingBlocks.Services;
 
 public interface IDateTimeProvider
 {

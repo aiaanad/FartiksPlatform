@@ -1,4 +1,4 @@
-using FartiksPlatform.BuildingBlocks.IntegrationEvents;
+using FartiksPlatform.BuildingBlocks.Events;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

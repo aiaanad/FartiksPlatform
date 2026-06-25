@@ -1,6 +1,5 @@
 namespace FartiksPlatform.Services.User.Domain.Constants;
 
-
 public static class UserRoles
 {
     public const string Admin = "Admin";

@@ -1,12 +1,11 @@
+using FartiksPlatform.Services.User.Application.Abstractions.Persistence;
 using FartiksPlatform.Services.User.Application.Commands.RegisterUser;
 using FartiksPlatform.Services.User.Application.Interfaces;
 using FartiksPlatform.Services.User.Domain.Repositories;
 using FartiksPlatform.Services.User.Infrastructure.Messaging;
-using FartiksPlatform.Services.User.Infrastructure.Persistence.Configurations;
+using FartiksPlatform.Services.User.Infrastructure.Persistence;
 using FartiksPlatform.Services.User.Infrastructure.Persistence.Repositories;
 using FartiksPlatform.Services.User.Infrastructure.Security;
-using FartiksPlatform.Services.User.Infrastructure.Services;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,21 +20,26 @@ public static class DependencyInjection
         // Database
         services.AddDbContext<UserDbContext>(options =>
         {
-            throw new NotImplementedException();
-        });
-
-        services.AddScoped<IUserDbContext>(provider =>
-        {
-            return provider.GetRequiredService<UserDbContext>();
+            options.UseNpgsql(configuration.GetConnectionString("UserDb"),
+                sql =>
+                {
+                    sql.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName);
+                });
         });
 
         // Repositories
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
+        // Unit of Work
+        services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
 
         // Application Services
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IPasswordHashGenerator, PasswordHashGenerator>();
-        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+
+        // Messaging
+        services.AddSingleton<IEventPublisher, RabbitMqPublisher>();
 
         // Options
         services.Configure<JwtOptions>(configuration.GetSection("Jwt"));

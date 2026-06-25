@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net10.0": {
+    "net9.0": {
       "Yarp.ReverseProxy": {
         "type": "Direct",
         "requested": "[2.3.0, )",
