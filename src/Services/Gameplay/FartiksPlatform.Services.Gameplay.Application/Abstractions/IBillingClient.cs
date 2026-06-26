@@ -1,4 +1,4 @@
-namespace FartiksPlatform.Services.Gameplay.Application.Interfaces;
+namespace FartiksPlatform.Services.Gameplay.Application.Abstractions;
 
 public interface IBillingClient
 {

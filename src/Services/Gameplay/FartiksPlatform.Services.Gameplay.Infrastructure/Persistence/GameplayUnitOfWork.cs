@@ -1,17 +1,27 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using FartiksPlatform.Services.Gameplay.Infrastructure.Persistence;
+using FartiksPlatform.Services.Gameplay.Domain.Repositories;
+using FartiksPlatform.Services.Gameplay.Application.Abstractions;
+using FartiksPlatform.Services.Gameplay.Infrastructure.Persistence.Repositories;
 
 namespace FartiksPlatform.Services.Gameplay.Infrastructure.Persistence;
 
-public class UnitOfWork
+public class GameplayUnitOfWork : IGameplayUnitOfWork
 {
+    private readonly IGameRepository _gameRepository;
+    private readonly IGameRoundRepository _gameRoundRepository;
+
     private readonly GameplayDbContext _context;
     private IDbContextTransaction? _transaction;
 
-    public UnitOfWork(GameplayDbContext context)
+    public IGameRepository Games => _gameRepository;
+    public IGameRoundRepository Rounds => _gameRoundRepository;
+
+    public GameplayUnitOfWork(GameplayDbContext context, IGameRepository gameRepository, IGameRoundRepository gameRoundRepository)
     {
         _context = context;
+        _gameRepository = gameRepository;
+        _gameRoundRepository = gameRoundRepository;
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
