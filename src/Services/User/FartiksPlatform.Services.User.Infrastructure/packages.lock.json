@@ -59,6 +59,16 @@
           "System.Threading.RateLimiting": "8.0.0"
         }
       },
+      "System.IdentityModel.Tokens.Jwt": {
+        "type": "Direct",
+        "requested": "[8.3.0, )",
+        "resolved": "8.3.0",
+        "contentHash": "9GESpDG0Zb17HD5mBW/uEWi2yz/uKPmCthX2UhyLnk42moGH2FpMgXA2Y4l2Qc7P75eXSUTA6wb/c9D9GSVkzw==",
+        "dependencies": {
+          "Microsoft.IdentityModel.JsonWebTokens": "8.3.0",
+          "Microsoft.IdentityModel.Tokens": "8.3.0"
+        }
+      },
       "MassTransit.Abstractions": {
         "type": "Transitive",
         "resolved": "8.3.6",

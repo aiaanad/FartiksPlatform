@@ -1,4 +1,7 @@
-using FartiksPlatform.Services.User.Api.Contracts;
+using FartiksPlatform.BuildingBlocks.Common;
+using FartiksPlatform.Services.User.Application.Commands.ActivateUser;
+using FartiksPlatform.Services.User.Application.Commands.DeactivateUser;
+using FartiksPlatform.Services.User.Application.Commands.DeleteUser;
 using FartiksPlatform.Services.User.Application.Queries.GetUserProfile;
 using FartiksPlatform.Services.User.Application.Queries.GetUsersPaged;
 using MediatR;
@@ -22,30 +25,35 @@ public class AdminUsersController : ControllerBase
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUserProfile([FromRoute] Guid userId)
     {
-        throw new NotImplementedException();
+        Result<UserProfileResponse> result = await _mediator.Send(new GetUserProfileQuery(userId));
+        return result.IsSuccess ? Ok(result.Value) : result.ToActionResult();
     }
 
     [HttpGet]
     public async Task<IActionResult> GetUsersPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        throw new NotImplementedException();
+        Result<UsersPagedResponse> result = await _mediator.Send(new GetUsersPagedQuery(page, pageSize));
+        return result.IsSuccess ? Ok(result.Value) : result.ToActionResult();
     }
 
     [HttpPut("{userId}/deactivate")]
     public async Task<IActionResult> DeactivateUser([FromRoute] Guid userId)
     {
-        throw new NotImplementedException();
+        Result result = await _mediator.Send(new DeactivateUserCommand(userId));
+        return result.IsSuccess ? NoContent() : result.ToActionResult();
     }
 
     [HttpPut("{userId}/activate")]
     public async Task<IActionResult> ActivateUser([FromRoute] Guid userId)
     {
-        throw new NotImplementedException();
+        Result result = await _mediator.Send(new ActivateUserCommand(userId));
+        return result.IsSuccess ? NoContent() : result.ToActionResult();
     }
 
     [HttpDelete("{userId}")]
     public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
     {
-        throw new NotImplementedException();
+        Result result = await _mediator.Send(new DeleteUserCommand(userId));
+        return result.IsSuccess ? NoContent() : result.ToActionResult();
     }
 }
