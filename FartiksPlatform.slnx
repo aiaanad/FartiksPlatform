@@ -9,6 +9,7 @@
     <Project Path="src/Services/User/FartiksPlatform.Services.User.Domain/FartiksPlatform.Services.User.Domain.csproj" />
     <Project Path="src/Services/User/FartiksPlatform.Services.User.Infrastructure/FartiksPlatform.Services.User.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Billing/">
     <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Api/FartiksPlatform.Services.Billing.Api.csproj" />
     <Project Path="src/Services/Billing/FartiksPlatform.Services.Billing.Application/FartiksPlatform.Services.Billing.Application.csproj" />
