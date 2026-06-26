@@ -4,11 +4,14 @@ using FartiksPlatform.Services.Billing.Application.Consumers;
 using FartiksPlatform.Services.Billing.Api.Grpc;
 using FartiksPlatform.BuildingBlocks.Errors;
 using FartiksPlatform.Services.Billing.Application.Mappers;
+using FartiksPlatform.Services.Billing.Infrastructure;
 using FartiksPlatform.Services.Billing.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using MassTransit;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddDbContext<BillingDbContext>(opt =>
 {
