@@ -428,7 +428,8 @@
         "type": "Project",
         "dependencies": {
           "FartiksPlatform.Services.Billing.Application": "[1.0.0, )",
-          "Microsoft.EntityFrameworkCore": "[9.0.2, )"
+          "Microsoft.EntityFrameworkCore": "[9.0.2, )",
+          "RabbitMQ.Client": "[7.2.1, )"
         }
       }
     }

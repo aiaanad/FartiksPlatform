@@ -6,22 +6,17 @@ using FartiksPlatform.Services.User.Application.Interfaces;
 
 namespace FartiksPlatform.Services.User.Infrastructure.Messaging;
 
-public class RabbitMqPublisher : IEventPublisher, IAsyncDisposable
+public class RabbitMqPublisher(IConfiguration configuration) : IEventPublisher, IAsyncDisposable
 {
-    private readonly ConnectionFactory _factory;
+    private readonly ConnectionFactory _factory = new()
+    {
+        HostName = configuration["RabbitMQ:Host"] ?? "localhost",
+        UserName = configuration["RabbitMQ:Username"] ?? "guest",
+        Password = configuration["RabbitMQ:Password"] ?? "guest",
+    };
     private IConnection? _connection;
     private IChannel? _channel;
     private readonly SemaphoreSlim _lock = new(1, 1);
-
-    public RabbitMqPublisher(IConfiguration configuration)
-    {
-        _factory = new ConnectionFactory
-        {
-            HostName = configuration["RabbitMQ:Host"] ?? "localhost",
-            UserName = configuration["RabbitMQ:Username"] ?? "guest",
-            Password = configuration["RabbitMQ:Password"] ?? "guest",
-        };
-    }
 
     private async Task<IChannel> GetChannelAsync()
     {

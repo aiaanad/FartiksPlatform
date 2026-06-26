@@ -3,6 +3,7 @@
     <Project Path="src/FartiksPlatform.BuildingBlocks/FartiksPlatform.BuildingBlocks.csproj" />
     <Project Path="src/FartiksPlatform.Gateway/FartiksPlatform.Gateway.csproj" />
   </Folder>
+  <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/User/">
     <Project Path="src/Services/User/FartiksPlatform.Services.User.Api/FartiksPlatform.Services.User.Api.csproj" />
     <Project Path="src/Services/User/FartiksPlatform.Services.User.Application/FartiksPlatform.Services.User.Application.csproj" />
