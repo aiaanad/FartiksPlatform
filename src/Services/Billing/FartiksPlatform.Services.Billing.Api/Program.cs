@@ -39,6 +39,7 @@ builder.Services.AddMassTransit(x =>
 */
 
 builder.Services.AddControllers();
+builder.Services.AddOpenApi();
 
 WebApplication app = builder.Build();
 
@@ -53,6 +54,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapOpenApi(); 
 app.MapControllers();
 app.MapGrpcService<BillingService>();
 

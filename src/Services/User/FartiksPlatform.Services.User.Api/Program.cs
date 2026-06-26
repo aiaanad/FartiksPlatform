@@ -43,13 +43,10 @@ public class Program
         builder.Services.AddAuthorization();  
   
         WebApplication app = builder.Build();  
+   
+        app.MapOpenApi();   
   
-        if (app.Environment.IsDevelopment())  
-        {  
-            app.MapOpenApi();  
-        }  
-  
-        app.UseHttpsRedirection();  
+        //app.UseHttpsRedirection();  
         app.UseCors();  
         app.UseAuthentication();  
         app.UseAuthorization();  
