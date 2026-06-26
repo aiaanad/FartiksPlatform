@@ -1,4 +1,5 @@
 using FartiksPlatform.BuildingBlocks.Common;
+using FartiksPlatform.Services.User.Application.Errors;
 using FartiksPlatform.Services.User.Application.Interfaces;
 using FartiksPlatform.Services.User.Domain.Repositories;
 
@@ -22,6 +23,26 @@ public class LoginUserCommandHandler : ICommandHandler<LoginUserCommand, Result<
 
     public async Task<Result<LoginUserResponse>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Domain.Entities.AppUser? user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
+        if (user is null)
+            return Result.Failure<LoginUserResponse>(UserErrors.InvalidCredentials);
+
+        if (!_passwordHashGenerator.VerifyHash(request.Password, user.PasswordHash))
+            return Result.Failure<LoginUserResponse>(UserErrors.InvalidCredentials);
+
+        if (user.Status != "Active")
+            return Result.Failure<LoginUserResponse>(UserErrors.UserDeactivated);
+
+        string token = _jwtProvider.GenerateToken(user);
+        string refreshToken = _jwtProvider.RefreshToken(user);
+
+        var response = new LoginUserResponse(
+            user.Id,
+            user.Username,
+            user.Email.Value,
+            token,
+            refreshToken);
+
+        return Result.Success(response);
     }
 }

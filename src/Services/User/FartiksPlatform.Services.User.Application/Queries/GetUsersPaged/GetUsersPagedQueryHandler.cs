@@ -14,6 +14,15 @@ public class GetUsersPagedQueryHandler : IQueryHandler<GetUsersPagedQuery, Resul
 
     public async Task<Result<UsersPagedResponse>> Handle(GetUsersPagedQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        (IReadOnlyList<Domain.Entities.AppUser> users, int totalCount) = await _userRepository.GetUsersPagedAsync(request.Page, request.PageSize, cancellationToken);
+
+        var items = users
+            .Select(u =>
+            {
+                return new UserDto(u.Id, u.Username, u.Email.Value, u.Role, u.Status, u.CreatedAt);
+            })
+            .ToList();
+
+        return Result.Success(new UsersPagedResponse(items, totalCount, request.Page, request.PageSize));
     }
 }
