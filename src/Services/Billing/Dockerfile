@@ -1,23 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 COPY FartiksPlatform.slnx ./
 COPY Directory.Build.props ./
 
-COPY src/BuildingBlocks/BuildingBlocks.csproj src/BuildingBlocks/
-COPY src/Services/Billing/Billing.Api/Billing.Api.csproj src/Services/Billing/Billing.Api/
-COPY src/Services/Billing/Billing.Application/Billing.Application.csproj src/Services/Billing/Billing.Application/
-COPY src/Services/Billing/Billing.Domain/Billing.Domain.csproj src/Services/Billing/Billing.Domain/
-COPY src/Services/Billing/Billing.Infrastructure/Billing.Infrastructure.csproj src/Services/Billing/Billing.Infrastructure/
+COPY src/FartiksPlatform.BuildingBlocks/FartiksPlatform.BuildingBlocks.csproj src/FartiksPlatform.BuildingBlocks/
+COPY src/Services/Billing/FartiksPlatform.Services.Billing.Api/FartiksPlatform.Services.Billing.Api.csproj src/Services/Billing/FartiksPlatform.Services.Billing.Api/
+COPY src/Services/Billing/FartiksPlatform.Services.Billing.Application/FartiksPlatform.Services.Billing.Application.csproj src/Services/Billing/FartiksPlatform.Services.Billing.Application/
+COPY src/Services/Billing/FartiksPlatform.Services.Billing.Domain/FartiksPlatform.Services.Billing.Domain.csproj src/Services/Billing/FartiksPlatform.Services.Billing.Domain/
+COPY src/Services/Billing/FartiksPlatform.Services.Billing.Infrastructure/FartiksPlatform.Services.Billing.Infrastructure.csproj src/Services/Billing/FartiksPlatform.Services.Billing.Infrastructure/
 
-RUN dotnet restore src/Services/Billing/Billing.Api/Billing.Api.csproj
+RUN dotnet restore src/Services/Billing/FartiksPlatform.Services.Billing.Api/FartiksPlatform.Services.Billing.Api.csproj
 
-COPY src/BuildingBlocks/ src/BuildingBlocks/
+COPY src/FartiksPlatform.BuildingBlocks/ src/FartiksPlatform.BuildingBlocks/
 COPY src/Services/Billing/ src/Services/Billing/
 
-WORKDIR /app/src/Services/Billing/Billing.Api
-RUN dotnet publish Billing.Api.csproj -c Release -o /app/publish
-
+WORKDIR /app/src/Services/Billing/FartiksPlatform.Services.Billing.Api
+RUN dotnet publish FartiksPlatform.Services.Billing.Api.csproj -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
 WORKDIR /app
 
@@ -26,4 +25,4 @@ ENV ASPNETCORE_URLS=http://+:8080
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "Billing.Api.dll"]
+ENTRYPOINT ["dotnet", "FartiksPlatform.Services.Billing.Api.dll"]

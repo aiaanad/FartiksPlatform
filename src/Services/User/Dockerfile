@@ -1,22 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 COPY FartiksPlatform.slnx ./
 COPY Directory.Build.props ./
 
-COPY src/BuildingBlocks/BuildingBlocks.csproj src/BuildingBlocks/
-COPY src/Services/User/User.Api/User.Api.csproj src/Services/User/User.Api/
-COPY src/Services/User/User.Application/User.Application.csproj src/Services/User/User.Application/
-COPY src/Services/User/User.Domain/User.Domain.csproj src/Services/User/User.Domain/
-COPY src/Services/User/User.Infrastructure/User.Infrastructure.csproj src/Services/User/User.Infrastructure/
+COPY src/FartiksPlatform.BuildingBlocks/FartiksPlatform.BuildingBlocks.csproj src/FartiksPlatform.BuildingBlocks/
+COPY src/Services/User/FartiksPlatform.Services.User.Api/FartiksPlatform.Services.User.Api.csproj src/Services/User/FartiksPlatform.Services.User.Api/
+COPY src/Services/User/FartiksPlatform.Services.User.Application/FartiksPlatform.Services.User.Application.csproj src/Services/User/FartiksPlatform.Services.User.Application/
+COPY src/Services/User/FartiksPlatform.Services.User.Domain/FartiksPlatform.Services.User.Domain.csproj src/Services/User/FartiksPlatform.Services.User.Domain/
+COPY src/Services/User/FartiksPlatform.Services.User.Infrastructure/FartiksPlatform.Services.User.Infrastructure.csproj src/Services/User/FartiksPlatform.Services.User.Infrastructure/
 
-RUN dotnet restore src/Services/User/User.Api/User.Api.csproj
+RUN dotnet restore src/Services/User/FartiksPlatform.Services.User.Api/FartiksPlatform.Services.User.Api.csproj
 
-COPY src/BuildingBlocks/ src/BuildingBlocks/
+COPY src/FartiksPlatform.BuildingBlocks/ src/FartiksPlatform.BuildingBlocks/
 COPY src/Services/User/ src/Services/User/
 
-WORKDIR /app/src/Services/User/User.Api
-RUN dotnet publish User.Api.csproj -c Release -o /app/publish
+WORKDIR /app/src/Services/User/FartiksPlatform.Services.User.Api
+RUN dotnet publish FartiksPlatform.Services.User.Api.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
 WORKDIR /app
@@ -26,4 +26,4 @@ ENV ASPNETCORE_URLS=http://+:8080
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "User.Api.dll"]
+ENTRYPOINT ["dotnet", "FartiksPlatform.Services.User.Api.dll"]

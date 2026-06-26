@@ -1,22 +1,22 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 COPY FartiksPlatform.slnx ./
 COPY Directory.Build.props ./
 
-COPY src/BuildingBlocks/BuildingBlocks.csproj src/BuildingBlocks/
-COPY src/Services/Gameplay/Gameplay.Api/Gameplay.Api.csproj src/Services/Gameplay/Gameplay.Api/
-COPY src/Services/Gameplay/Gameplay.Application/Gameplay.Application.csproj src/Services/Gameplay/Gameplay.Application/
-COPY src/Services/Gameplay/Gameplay.Domain/Gameplay.Domain.csproj src/Services/Gameplay/Gameplay.Domain/
-COPY src/Services/Gameplay/Gameplay.Infrastructure/Gameplay.Infrastructure.csproj src/Services/Gameplay/Gameplay.Infrastructure/
+COPY src/FartiksPlatform.BuildingBlocks/FartiksPlatform.BuildingBlocks.csproj src/FartiksPlatform.BuildingBlocks/
+COPY src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Api/FartiksPlatform.Services.Gameplay.Api.csproj src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Api/
+COPY src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Application/FartiksPlatform.Services.Gameplay.Application.csproj src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Application/
+COPY src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Domain/FartiksPlatform.Services.Gameplay.Domain.csproj src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Domain/
+COPY src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Infrastructure/FartiksPlatform.Services.Gameplay.Infrastructure.csproj src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Infrastructure/
 
-RUN dotnet restore src/Services/Gameplay/Gameplay.Api/Gameplay.Api.csproj
+RUN dotnet restore src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Api/FartiksPlatform.Services.Gameplay.Api.csproj
 
-COPY src/BuildingBlocks/ src/BuildingBlocks/
+COPY src/FartiksPlatform.BuildingBlocks/ src/FartiksPlatform.BuildingBlocks/
 COPY src/Services/Gameplay/ src/Services/Gameplay/
 
-WORKDIR /app/src/Services/Gameplay/Gameplay.Api
-RUN dotnet publish Gameplay.Api.csproj -c Release -o /app/publish
+WORKDIR /app/src/Services/Gameplay/FartiksPlatform.Services.Gameplay.Api
+RUN dotnet publish FartiksPlatform.Services.Gameplay.Api.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
 WORKDIR /app
@@ -26,4 +26,4 @@ ENV ASPNETCORE_URLS=http://+:8080
 
 COPY --from=build /app/publish .
 
-ENTRYPOINT ["dotnet", "Gameplay.Api.dll"]
+ENTRYPOINT ["dotnet", "FartiksPlatform.Services.Gameplay.Api.dll"]

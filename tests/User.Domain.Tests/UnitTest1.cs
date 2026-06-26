@@ -1,4 +1,4 @@
-namespace User.Domain.Tests;
+namespace FartiksPlatform.Services.User.Domain.Tests;
 
 public class UnitTest1
 {

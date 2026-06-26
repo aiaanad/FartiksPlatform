@@ -4,8 +4,8 @@
 
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     
-    <RestoreLockedMode Condition="'$(Configuration)' == 'Release'">true</RestoreLockedMode>
-
+    <RestoreLockedMode>false</RestoreLockedMode>
+    
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>
