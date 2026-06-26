@@ -12,7 +12,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<BillingDbContext>(opt =>
 {
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
@@ -23,6 +23,7 @@ builder.Services.AddGrpc();
 builder.Services.AddSingleton<IErrorMapper, BillingErrorMapper>();
 builder.Services.AddSingleton<IErrorMapper, DefaultErrorMapper>();
 
+/*
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<UserRegisteredConsumer>();
@@ -35,6 +36,7 @@ builder.Services.AddMassTransit(x =>
         });
     });
 });
+*/
 
 builder.Services.AddControllers();
 

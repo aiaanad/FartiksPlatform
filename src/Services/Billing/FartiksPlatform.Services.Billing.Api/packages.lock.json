@@ -4,9 +4,9 @@
     "net9.0": {
       "Google.Protobuf": {
         "type": "Direct",
-        "requested": "[3.35.1, )",
-        "resolved": "3.35.1",
-        "contentHash": "pxtkuXhR8svkvDTQrYew9GZQt6eWhblz/V/WKUFrQgkHYlQPsumJTeF6ppHRJpe6j9ffukkd5lQULiiKaek4xA=="
+        "requested": "[3.31.1, )",
+        "resolved": "3.31.1",
+        "contentHash": "gSnJbUmGiOTdWddPhqzrEscHq9Ls6sqRDPB9WptckyjTUyx70JOOAaDLkFff8gManZNN3hllQ4aQInnQyq/Z/A=="
       },
       "Grpc.AspNetCore": {
         "type": "Direct",
@@ -21,9 +21,9 @@
       },
       "Grpc.Tools": {
         "type": "Direct",
-        "requested": "[2.82.0-pre1, )",
-        "resolved": "2.82.0-pre1",
-        "contentHash": "SDaze8s8doKI5ZZaXIJSTefrttRbMiHLkFwvN34EukxIngtA/2rWocC4gM8mcmbUQrUVAQVl46qOFF67Opf+Qw=="
+        "requested": "[2.80.0, )",
+        "resolved": "2.80.0",
+        "contentHash": "NS1AxwVZnrdbBoMf5L5ruGjBjoLBej9avhqxWNsgfu2GU6FhpxEVJOwLJsdljlDCjvquJiAH2zf/WodIWMvf2w=="
       },
       "MassTransit.RabbitMQ": {
         "type": "Direct",

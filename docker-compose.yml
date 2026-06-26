@@ -1,76 +1,107 @@
+version: "3.9"
+
 services:
-  fartiks-postgres:
-    image: postgres:16-alpine
+  postgres:
+    image: postgres:16
     container_name: fartiks-postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres_admin
-      POSTGRES_PASSWORD: SuperSecurePassword123!
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:
-      - ./init-db:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - fartiks-network
-    restart: unless-stopped
-    
-  fartiks-rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: fartiks-rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672" 
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    networks:
-      - fartiks-network
-    restart: unless-stopped
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   user-service:
-    container_name: user-service
     build:
       context: .
-      dockerfile: src/Services/User/Dockerfile
-    ports:
-      - "8081:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=fartiks-postgres;Port=5432;Database=users_db;Username=postgres_admin;Password=SuperSecurePassword123!
-      - RabbitMQ__Host=fartiks-rabbitmq
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
+      dockerfile: ./src/Services/User/Dockerfile
+    container_name: fartiks-user-service
+    restart: unless-stopped
     depends_on:
-      - fartiks-postgres
-      - fartiks-rabbitmq
-    networks:
-      - fartiks-network
-    restart: always
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: ${USER_DB}
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+      Jwt__Secret: ${JWT_SECRET}
+    ports:
+      - "5001:8080"
 
   billing-service:
-    container_name: billing-service
+    platform: linux/amd64
     build:
       context: .
-      dockerfile: src/Services/Billing/Dockerfile
-    ports:
-      - "8082:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=fartiks-postgres;Port=5432;Database=billing_db;Username=postgres_admin;Password=SuperSecurePassword123!
-      - RabbitMQ__Host=fartiks-rabbitmq
-      - RabbitMQ__Username=guest
-      - RabbitMQ__Password=guest
+      dockerfile: ./src/Services/Billing/Dockerfile
+    container_name: fartiks-billing-service
+    restart: unless-stopped
     depends_on:
-      - fartiks-postgres
-      - fartiks-rabbitmq
-    networks:
-      - fartiks-network
-    restart: always
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: ${BILLING_DB}
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+      Jwt__Secret: ${JWT_SECRET}
+    ports:
+      - "5002:8080"
 
-networks:
-  fartiks-network:
-    driver: bridge
+  gameplay-service:
+    build:
+      context: .
+      dockerfile: ./src/Services/Gameplay/Dockerfile
+    container_name: fartiks-gameplay-service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      billing-service:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: ${GAMEPLAY_DB}
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+      Jwt__Secret: ${JWT_SECRET}
+      Grpc__BillingUrl: http://billing-service:8080
+    ports:
+      - "5003:8080"
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./src/FartiksPlatform.Gateway/Dockerfile
+    container_name: fartiks-gateway
+    restart: unless-stopped
+    depends_on:
+      user-service:
+        condition: service_started
+      billing-service:
+        condition: service_started
+      gameplay-service:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Jwt__Issuer: ${JWT_ISSUER}
+      Jwt__Audience: ${JWT_AUDIENCE}
+      Jwt__Secret: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
 
 volumes:
   postgres_data:

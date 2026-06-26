@@ -20,7 +20,7 @@ public static class DependencyInjection
         // Database
         services.AddDbContext<UserDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("UserDb"),
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                 sql =>
                 {
                     sql.MigrationsAssembly(typeof(UserDbContext).Assembly.FullName);
@@ -53,8 +53,5 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
         });
-
-        // MassTransit
-        MassTransitBusConfig.ConfigureMassTransit(services, configuration);
     }
 }
