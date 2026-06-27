@@ -54,7 +54,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapOpenApi(); 
+app.MapOpenApi();
 app.MapControllers();
 app.MapGrpcService<BillingService>();
 
